@@ -1,37 +1,28 @@
-class Solution {
-public:
-    vector<string> findRelativeRanks(vector<int>& score) {
-        int n = score.size();
-        priority_queue<pair<int,int>> maxHeap;
+class Solution 
+{
+    public:
+        vector<string> findRelativeRanks(vector<int>& score) 
+        {
+            int N = score.size();
+            priority_queue<pair<int, int>> pq;
+            vector<string> ans(N);
 
-        for(int i=0;i<n;i++) {
-            maxHeap.push({score[i],i});
+            for(int i=0; i<N; i++) pq.push({score[i], i});
+            
+            int i = 1;
+            while(!pq.empty())
+            {
+                if(i == 1) ans[pq.top().second] = "Gold Medal";
+
+                if(i == 2) ans[pq.top().second] = "Silver Medal";
+
+                if(i == 3) ans[pq.top().second] = "Bronze Medal";
+
+                else if(i > 3) ans[pq.top().second] = to_string(i);
+
+                i++;
+                pq.pop();
+            }
+            return ans;
         }
-
-        vector<string> res(n);
-
-        for(int i=0;i<n;i++) {
-            auto it = maxHeap.top();
-            int currVal = it.first;
-            int index = it.second;
-            maxHeap.pop();
-
-            if(i == 0) {
-                res[index] = "Gold Medal";
-            }
-            else if(i == 1) {
-                res[index] = "Silver Medal";
-            }
-            else if(i == 2) {
-                res[index] = "Bronze Medal";
-            }
-
-            else {
-                string temp = to_string(i+1);
-                res[index] = temp;
-            }
-        }
-
-        return res;
-    }
 };
