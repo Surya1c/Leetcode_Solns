@@ -1,29 +1,29 @@
 class Solution {
 public:
     string sortVowels(string s) {
-       
-        // Step 1: Collect vowels and sort them in descending order
-        
-        vector<char> vowels;
-        for (char c : s) {
-            if (string("aeiouAEIOU").find(c) != string::npos) {
-                vowels.push_back(c);
+        string ans="";
+        vector<char> arr;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]=='a'||s[i]=='e'||s[i]=='i'||s[i]=='o'||s[i]=='u'||s[i]=='A'||s[i]=='E'||s[i]=='I'||s[i]=='O'||s[i]=='U')
+            {
+                arr.push_back(s[i]);
             }
         }
-        sort(vowels.begin(), vowels.end(), greater<char>());
-
-        // Step 2: Construct the answer string by replacing vowels in sorted order
-        string result;
-        for (char c : s) {
-            if (string("aeiouAEIOU").find(c) != string::npos) {
-                result += vowels.back();
-                vowels.pop_back();
-            } else {
-                result += c;
+        sort(arr.begin(),arr.end());
+        int count=0;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]=='a'||s[i]=='e'||s[i]=='i'||s[i]=='o'||s[i]=='u'||s[i]=='A'||s[i]=='E'||s[i]=='I'||s[i]=='O'||s[i]=='U')
+            {
+                ans.push_back(arr[count]);
+                count++;
+            }
+            else
+            {
+                ans.push_back(s[i]);
             }
         }
-
-        // Step 3: Return the final string
-        return result;        
+        return ans;
     }
 };
