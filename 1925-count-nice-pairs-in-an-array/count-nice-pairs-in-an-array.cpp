@@ -1,0 +1,26 @@
+class Solution {
+public:
+    static const int M = 1000000007;
+    int countNicePairs(vector<int>& nums) {
+       unordered_map<int, int> reverse_diff_count;
+       int ans = 0;
+
+       for (int n : nums) {
+           int r = reverse(n);
+           ans += reverse_diff_count[r - n];
+           ans %= M;
+           reverse_diff_count[r - n]++;
+       }
+
+       return ans;
+    }
+
+    inline int reverse(int num) {
+        int rev_num = 0; 
+        while (num > 0) { 
+            rev_num = rev_num * 10 + num % 10; 
+            num = num / 10; 
+        } 
+        return rev_num; 
+    }
+};
