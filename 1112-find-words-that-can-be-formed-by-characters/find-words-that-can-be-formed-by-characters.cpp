@@ -1,23 +1,31 @@
 class Solution {
-public:
-    int countCharacters(vector<string>& words, string chars) {
-        int result = 0;
-        for (const string& word : words) {
-            string tempChars = chars;
-            bool valid = true;
-            for (char c : word) {
-                size_t pos = tempChars.find(c);
-                if (pos != string::npos) {
-                    tempChars.erase(pos, 1);
-                } else {
-                    valid = false;
-                    break;
-                }
-            }
-            if (valid) {
-                result += word.size();
+private:
+    int isvalid(string s, unordered_map<char, int>map) {
+        int n = s.size();
+        for (auto i : s) {
+            auto it = map.find(i);
+            if (it != map.end() && it->second > 0) {
+                map[i]--;
+            } else {
+                return 0;
             }
         }
-        return result;
+        return n;
+    }
+
+public:
+    int countCharacters(vector<string>& words, string chars) {
+        int ans = 0;
+        unordered_map<char, int> mp;
+
+        for (auto i : chars) {
+            mp[i]++;
+        }
+
+        for (auto i : words) {
+            ans += isvalid(i, mp);
+        }
+
+        return ans;
     }
 };
